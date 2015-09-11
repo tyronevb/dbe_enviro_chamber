@@ -48,16 +48,16 @@ socketServer.on('connection', function(socket){
 serialListener(debug);
 
 function SocketIO_serialemit(sendData){      
-	console.log(sendData.length);     
+	//console.log(sendData.length);     
 
-	if(sendData.length == 17)
+	if(sendData.length >= 14)
 	{	
 		var s_data = sendData.split(",");
 		socketServer.emit('temp1',{'temp': s_data[0]});
 		socketServer.emit('temp2',{'temp': s_data[1]});
 		socketServer.emit('temp3',{'temp': s_data[2]});
-		csv_stream.write(time_handler().utcOffset('+02:00').format('HH:mm:ss') + ',');
-		csv_stream.write(s_data[0] + ',' + s_data[0] + ',' + s_data[0]);
+		csv_stream.write(time_handler().format('HH:mm:ss') + ',');
+		csv_stream.write(s_data[0] + ',' + s_data[1] + ',' + s_data[2]);
 		csv_stream.write('\n');
 		//csv_stream.end();	
 	}
@@ -88,14 +88,31 @@ function serialListener(debug)
       console.log('open serial communication');
             // Listens to incoming data
 			serialPort.on('data', function(data) {
-				 receivedData += data.toString();
+				
+			if (data.toString() == "X")
+			{
+				console.log("Control Done");
+				socketServer.emit('Completed',{'key': data.toString()});
+			}
+			
+			if (data.toString()[0] == "S")
+			{
+				console.log("Stage Done");
+				socketServer.emit('Stage',{'key': data.toString()[0]});
+			}
+			
+			receivedData += data.toString();
+			
+			  //console.log(receivedData);
 			  if (receivedData .indexOf('E') >= 0 && receivedData .indexOf('T') >= 0) {
 			   sendData = receivedData .substring(receivedData .indexOf('T') + 1, receivedData .indexOf('E'));        
 			receivedData = '';
-			 }         
-			 SocketIO_serialemit(sendData);
+			SocketIO_serialemit(sendData);
+			 }
+			 
+			 
 		});  
-    });  
+    });
 }
 
 http.listen(3000, function(){

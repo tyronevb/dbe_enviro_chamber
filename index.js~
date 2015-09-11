@@ -56,7 +56,7 @@ function SocketIO_serialemit(sendData){
 		socketServer.emit('temp1',{'temp': s_data[0]});
 		socketServer.emit('temp2',{'temp': s_data[1]});
 		socketServer.emit('temp3',{'temp': s_data[2]});
-		csv_stream.write(time_handler().zone('+02:00').format('HH:mm:ss') + ',');
+		csv_stream.write(time_handler().format('HH:mm:ss') + ',');
 		csv_stream.write(s_data[0] + ',' + s_data[0] + ',' + s_data[0]);
 		csv_stream.write('\n');
 		//csv_stream.end();	

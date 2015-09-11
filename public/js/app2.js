@@ -2,7 +2,8 @@ var main = function(){
 	//var counter = 5;
 	var category = 0;
 	//$('.form2').hide();	
-	$('#config-box').hide();
+	//$('#config-box').hide();
+	$('#operation-box').hide();
 	
     $('.btn-add-seg').click(function(){
 		
@@ -14,13 +15,15 @@ var main = function(){
     });
 	
 	$('.btn-stop').click(function(){
-		$(this).addClass('disabled');
+		$('#status-curr-reset').text("");
+		
+		/*$(this).addClass('disabled');
 		$('#stopped-icon').removeClass('inactive-state')
 		$('#running-icon').addClass('inactive-state')
 		$('.btn-reset').removeClass('disabled');
 		$('#running-icon').removeClass('fa-spin');
 		$('#status-curr-stop').text("Halted");
-		$('#status-curr-run').text("");			
+		$('#status-curr-run').text("");*/			
 	});
 	
 	$('.btn-reset').click(function(){
@@ -31,7 +34,8 @@ var main = function(){
 		$('#config-box').show();
 		$('#status-curr-run').text("");
 		$('#status-curr-stop').text("");
-		$('#status-curr-reset').text("Configuration ready");	
+		$('#status-curr-reset').text("Configuration Ready");
+		window.location.reload();		
 	});
 	
 	
@@ -41,6 +45,7 @@ var main = function(){
 		$('#status-curr-run').text("Ready");
 		$('#status-curr-reset').text("Successfully Configured");
 		$('.btn-start').removeClass('disabled');
+		$('.btn-stop').removeClass('disabled');
 	
 	});
 	$('.btn-start').click(function(){
@@ -56,9 +61,11 @@ var main = function(){
 	});
 	$('.btn-clear').click(function(){
 		$('.btn-start').addClass('disabled');
+		$('.btn-confirm').removeClass('disabled');
 		$('#status-curr-run').text("");
 		$('#status-curr-stop').text("");
-		$('#status-curr-reset').text("Configuration ready");		
+		$('#status-curr-reset').text("Configuration ready");
+		window.location.reload();		
 	});
 }
 $(document).ready(main);
