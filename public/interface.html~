@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		
+		<title>Environmental Chamber Control</title>
+
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/font-awesome.min.css" rel="stylesheet">		
+	</head>  
+	<body>
+		<div class="container">
+			<div id="top-bar" class="page-header row">
+				<div class="col-sm-3">
+					<img src="img/SKA_Logo.png" style="width:50%">
+				</div>
+		  
+				<div class="col-sm-9">		
+					<h1 style="padding-top:5%">DBE Environmental Chamber Control</h1>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row">			
+					<div id="status-box" class="panel panel-info">
+						<div class="panel-heading">
+							<h3>System Status</h3>
+						</div>			
+						<div id="status-and-control" class="panel-body">
+							<div id="core-control-panel" class="container">
+								<div class="row">							
+									<div id="run-button" class="col-sm-4">
+										<i id="running-icon" class="fa fa-cog fa-spin fa-4x running-state"></i>
+										<h4 id="status-curr-run">Running</h4>
+									</div>
+								
+									<div id="stop-button" class="col-sm-4">
+										<i id="stopped-icon" class="fa fa-minus-circle fa-4x inactive-state"></i>
+										<h4 id="status-curr-stop"></h4>
+									</div>
+								
+									<div id="configure-button" class="col-sm-4">
+										<i id="reset-icon" class="fa fa-wrench fa-4x inactive-state"></i>
+										<h4 id="status-curr-reset"></h4>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="button-group col-sm-4">
+										<a href="#" class="btn btn-lg btn-start btn-success disabled">Start</a>
+									</div>								
+									
+									<div class="button-group col-sm-4">
+										<a href="#" class="btn btn-lg btn-stop btn-danger">Stop</a>
+									</div>
+									
+									<div class="button-group col-sm-4">
+										<a href="#" class="btn btn-lg btn-reset btn-warning disabled">Reset</a>
+									</div>								
+									
+								</div>
+							</div>
+							<div id="status-panel" class="">	
+								<div id="status-panel-temp" class="">
+									<h3 class="page-header">Temperatures:</h3>
+									<br/>
+									<div class="row">
+										<div class="col-sm-4 alert alert-success">									
+											<p style='display:inline'>Ambient Chamber Temp: </p><p id='temp1' style='display:inline'></p><p style='display:inline'> °C <p>
+										</div>
+										
+										<div class="col-sm-4 alert alert-info">									
+											 <p style='display:inline'>Temp Sensor 2: </p><p id='temp2' style='display:inline'></p><p style='display:inline'> °C <p>
+										</div>
+										
+										<div class="col-sm-4 alert alert-warning">									
+											<p style='display:inline'>Temp Sensor 3: </p><p id='temp3' style='display:inline'></p><p style='display:inline'> °C <p>
+										</div>
+									</div>								
+								</div>
+								<div id="status-panel-time" class="">
+									<h3 class="page-header">Time Remaining: </h3>
+									<br/r>
+									<div class="row">
+											<div class="col-sm-6 alert alert-success">									
+												<p style='display:inline'>Current Segment: </p><p id='time-run-hours' style='display:inline'></p><p style='display:inline'> hours<p><p id='time-run-min' style='display:inline'></p><p style='display:inline'> min<p>
+											</div>
+											
+											<div class="col-sm-6 alert alert-info">									
+												 <p style='display:inline'>Total Run: </p><p id='time-total-hours' style='display:inline'></p><p style='display:inline'> hours<p><p id='time-total-min' style='display:inline'></p><p style='display:inline'> min<p>
+											</div>
+									</div>								
+								</div>
+							</div>
+						</div>
+					</div>
+			  
+					<div id="config-box" class="row">
+						<div class="col-sm-6">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title">Controller Configuration</h3>
+								</div>			
+								<div class="panel-body">
+									<form class="controlValues">
+										<div class="form-group">											
+											<ul class="posts">
+												<li>
+													<div class="data-row">
+														<div class="col-sm-2">
+															<p class='simple-label'>Stage 1<p>
+														</div>
+														
+														<div class="col-sm-5">
+															<textarea id="tempVal1" class="status-box data-value" rows="1" placeholder="Target Temperature"></textarea>
+														</div>
+														
+														<div class="col-sm-5">
+															<textarea id="timeVal1" class="status-box data-category" rows="1" placeholder="Time to target"></textarea>
+														</div>
+													</div>
+												</li>
+												
+												<li>
+													<div class="data-row">
+														<div class="col-sm-2">
+															<p class='simple-label'>Stage 2<p>
+														</div>
+														
+														<div class="col-sm-5">
+															<textarea id="tempVal2" class="status-box data-value" rows="1" placeholder="Target Temperature"></textarea>
+														</div>
+														
+														<div class="col-sm-5">
+															<textarea id="timeVal2" class="status-box data-category" rows="1" placeholder="Time to target"></textarea>
+														</div>
+													</div>
+												</li>
+												
+												<li>
+													<div class="data-row">
+														<div class="col-sm-2">
+															<p class='simple-label'>Stage 3<p>
+														</div>
+														
+														<div class="col-sm-5">
+															<textarea id="tempVal3" class="status-box data-value" rows="1" placeholder="Target Temperature"></textarea>
+														</div>
+														
+														<div class="col-sm-5">
+															<textarea id="timeVal3" class="status-box data-category" rows="1" placeholder="Time to target"></textarea>
+														</div>
+													</div>
+												</li>
+												
+												<li>
+													<div class="data-row">
+														<div class="col-sm-2">
+															<p class='simple-label'>Stage 4<p>
+														</div>
+														
+														<div class="col-sm-5">
+															<textarea id="tempVal4" class="status-box data-value" rows="1" placeholder="Target Temperature"></textarea>
+														</div>
+														
+														<div class="col-sm-5">
+															<textarea id="timeVal4" class="status-box data-category" rows="1" placeholder="Time to target"></textarea>
+														</div>
+													</div>
+												</li>
+											</ul>
+										</div>					
+									</form>
+									<div class="row">
+										<div class="col-sm-3">
+										</div>
+										
+										<div class="col-sm-3 button-group">							
+											<a href="#" class="btn btn-add-seg btn-primary">Add Stages</a>
+										</div>
+										
+										<div class="col-sm-3 button-group">							
+											<a href="#" class="btn btn-save btn-warning">Save Profile</a>
+										</div>
+										
+										<div class="col-sm-3 button-group">							
+											<a href="#" class="btn btn-load btn-info">Load Profile</a>
+										</div>									
+									</div>
+									
+									<div class="row">
+										<div class="col-sm-3">											
+										</div>
+										
+										<div class="col-sm-3">
+										</div>
+										
+										<div class="col-sm-3">
+											<a href="#" class="btn btn-confirm btn-success">Confirm</a>
+										</div>
+										
+										<div class="col-sm-3">
+											<a href="#" class="btn btn-clear btn-danger">Clear</a>
+										</div>																				
+									</div>	
+								</div>
+							</div>
+						</div>						
+						<div class="col-sm-6">
+							<div class="panel panel-warning">
+								<div class="panel-heading">
+									<h3 class="panel-title">Graphical View</h3>
+								</div>			
+								<div class="panel-body">						
+									
+								</div>           
+							</div>
+						</div>
+					</div>
+					
+					<div id="operation-box" class="row">
+						<div class="col-sm-6">
+							<div  class="panel panel-success">							
+								<div class="panel-heading">
+									<h3 class="panel-title">Current Operation</h3>
+								</div>
+								
+								<div class="panel-body">				
+									<table class="table table-striped">
+										<thead>
+										  <tr>
+											<th>Stage #</th>
+											<th>Target Temperature</th>
+											<th>Current Temperature</th>
+											<th>Time Duration</th>
+											<th>Time Remaining</th>
+										  </tr>
+										</thead>
+										
+										<tbody>
+										  <tr>
+											<td>1</td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											
+										  </tr>
+										  <tr>
+											<td>2</td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>											
+										  </tr>
+										  <tr>
+											<td>3</td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>											
+											
+										  </tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-6">
+							<div class="panel panel-warning">
+								<div class="panel-heading">
+									<h3 class="panel-title">Graphical View</h3>
+								</div>			
+								<div class="panel-body">						
+								</div>           
+							</div>
+						</div>						
+					</div>						
+				</div>
+			</div>
+		</div>			
+		
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/app2.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="js/node-app.js"></script>
+		</body>
+</html>
