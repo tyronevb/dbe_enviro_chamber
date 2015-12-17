@@ -133,6 +133,12 @@ function getTimeValuesFromBoxes(){
 	timeValues += ',';
 	timeValues += 'F';*/
 }
+
+function roachTest(){
+	temperatureValues += 'R,40,40,10,10,40,40,10,10,E';
+	timeValues += 'S,30,360,30,360,30,360,30,360,F';
+	total_time = 1560;
+}
 			
 $(document).ready(function() {
 	main();
@@ -173,9 +179,22 @@ $(document).ready(function() {
 ;	});
 	$('.btn-confirm').click(function(){
 		$(this).addClass('disabled');
+		$('.btn-roach').addClass('disabled');
 		getTemperatureValuesFromBoxes();
 		getTimeValuesFromBoxes();
 		iosocket.emit('temperatureValues', temperatureValues);
 		iosocket.emit('timeValues', timeValues);
 	});
+
+
+	$('.btn-roach').click(function(){
+		$(this).addClass('disabled');
+		$('.btn-confirm').addClass('disabled');
+		roachTest();
+		iosocket.emit('temperatureValues', temperatureValues);
+		iosocket.emit('timeValues', timeValues);
+	});
+
+
+
 });

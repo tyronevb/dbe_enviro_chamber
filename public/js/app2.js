@@ -48,6 +48,18 @@ var main = function(){
 		$('.btn-stop').removeClass('disabled');
 	
 	});
+
+roach
+	$('.btn-roach').click(function(){
+		$('#reset-icon').addClass('inactive-state')
+		$('#running-icon').removeClass('inactive-state')
+		$('#status-curr-run').text("Ready");
+		$('#status-curr-reset').text("Successfully Configured");
+		$('.btn-start').removeClass('disabled');
+		$('.btn-stop').removeClass('disabled');
+	
+	});
+
 	$('.btn-start').click(function(){
 		$(this).addClass('disabled');
 		$('#status-curr-run').text("Running");
@@ -62,6 +74,7 @@ var main = function(){
 	$('.btn-clear').click(function(){
 		$('.btn-start').addClass('disabled');
 		$('.btn-confirm').removeClass('disabled');
+		$('.btn-roach').removeClass('disabled');
 		$('#status-curr-run').text("");
 		$('#status-curr-stop').text("");
 		$('#status-curr-reset').text("Configuration ready");
