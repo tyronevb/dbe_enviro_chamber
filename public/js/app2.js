@@ -4,6 +4,7 @@ var main = function(){
 	//$('.form2').hide();	
 	//$('#config-box').hide();
 	$('#operation-box').hide();
+	$('#secondForm').hide();
 	
     $('.btn-add-seg').click(function(){
 		
@@ -11,7 +12,7 @@ var main = function(){
         //$(element_to_post).appendTo('.posts');
 		//counter = counter + 1;
 		$(this).hide();
-		$('.form2').show();
+		$('#secondForm').show();
     });
 	
 	$('.btn-stop').click(function(){

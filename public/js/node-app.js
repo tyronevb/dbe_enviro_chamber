@@ -67,7 +67,7 @@ var temperatureValues = "";
 function getTemperatureValuesFromBoxes(){
 	
 	temperatureValues += 'A,';	
-	for (var i = 1; i < 9; i++){
+	for (var i = 1; i < 17; i++){
 		//temperatureValues += ',';		
 		var temp = document.getElementById("tempVal" + i.toString()).value;
 		if (temp == ''){
@@ -101,7 +101,7 @@ var total_time = 0;
 
 function getTimeValuesFromBoxes(){
 	timeValues += 'B,';		
-	for (var i = 1; i < 9; i++){
+	for (var i = 1; i < 17; i++){
 		//timeValues += ',';		
 		var temp = document.getElementById("timeVal" + i.toString()).value;
 		if (temp == ''){
