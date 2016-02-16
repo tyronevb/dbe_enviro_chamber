@@ -6,7 +6,7 @@ var fs = require('fs');
 var time_handler = require('moment');
 
 
-var fileName = ('/logs/Run:' + time_handler().format('HH:mm:ss') + '.csv')
+var fileName = (__dirname + '/logs/Run:' + time_handler().format('HH:mm:ss') + '.csv')
 var csv_stream = fs.createWriteStream(fileName)
 
 
