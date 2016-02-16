@@ -2,8 +2,13 @@ var app = require('express')();
 var http = require('http').createServer(app);
 var socketServer = require('socket.io').listen(http);
 var fs = require('fs');
-var csv_stream = fs.createWriteStream("tempLog.csv");
+//var csv_stream = fs.createWriteStream("tempLog.csv");
 var time_handler = require('moment');
+
+
+var fileName = ('Run:' + time_handler().format('HH:mm:ss') + '.csv')
+var csv_stream = fs.createWriteStream(fileName)
+
 
 SerialPort = require("serialport").SerialPort;
 
