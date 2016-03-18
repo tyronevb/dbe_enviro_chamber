@@ -6,16 +6,20 @@ var fs = require('fs');
 var time_handler = require('moment');
 
 
-var fileName = (__dirname + '/logs/Run:' + time_handler().format('HH:mm:ss') + '.csv')
 var csv_stream = fs.createWriteStream(fileName)
+var run_number = 0;
 
 
+console.log(time_handler().format('DD/MM/YYY');
 SerialPort = require("serialport").SerialPort;
 
 var serialPort;
 var portName = '/dev/ttyACM0'; //change this to your Arduino port
 var sendData = "";
 var debug = false; 
+
+// flag for file writing
+var file_write = false;
 
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/public/interface.html')
@@ -27,11 +31,15 @@ socketServer.on('connection', function(socket){
 	  serialPort.write('Z' + data + 'A');
 	  console.log('write to ard');
 	  console.log('Z' + data + 'A');
+      var fileName = (__dirname + '/logs/Run:' + time_handler().format('HH:mm:ss') + '_' + run_number + '.csv')
+      run_number += 1;
+      file_write = true;
 	});
 	socket.on('stop', function(data){
 	  serialPort.write('Y' + data + 'B');
 	  console.log('write to ard');
 	  console.log('Y' + data + 'B');
+      file_write = false;
 	});
 	socket.on('configure', function(data){
 	  serialPort.write('X' + data + 'C');
@@ -61,10 +69,15 @@ function SocketIO_serialemit(sendData){
 		socketServer.emit('temp1',{'temp': s_data[0]});
 		socketServer.emit('temp2',{'temp': s_data[1]});
 		socketServer.emit('temp3',{'temp': s_data[2]});
-		csv_stream.write(time_handler().format('HH:mm:ss') + ',');
-		csv_stream.write(s_data[0] + ',' + s_data[1] + ',' + s_data[2]);
-		csv_stream.write('\n');
-		//csv_stream.end();	
+        
+        // only write to the file if a control program is running
+        if (file_write)
+        {
+		    csv_stream.write(time_handler().format('HH:mm:ss') + ',');
+		    csv_stream.write(s_data[0] + ',' + s_data[1] + ',' + s_data[2]);
+		    csv_stream.write('\n');
+		    //csv_stream.end();	
+        }
 	}
 	
 	else{
@@ -98,6 +111,9 @@ function serialListener(debug)
 			{
 				console.log("Control Done");
 				socketServer.emit('Completed',{'key': data.toString()});
+
+                // run is completed here, so stop writing to the file
+                file_write = false;
 			}
 			
 			if (data.toString()[0] == "S")
