@@ -26,7 +26,7 @@ socketServer.on('connection', function(socket){
   console.log('a user connected');
 	socket.on('run', function(data){
 	  
-	fileName = (__dirname + '/logs/Run:' + time_handler().format('dd-MM-YY_HH:mm:ss') + '.csv');
+	fileName = (__dirname + '/logs/Run:' + time_handler().format('dd-DD-MM-YY_HH:mm:ss') + '.csv');
 	csv_stream = fs.createWriteStream(fileName);
 	serialPort.write('Z' + data + 'A');
   	console.log('write to ard');
@@ -101,6 +101,8 @@ function serialListener(debug)
 			if (data.toString() == "X")
 			{
 				console.log("Control Done");
+				fileName = (__dirname + '/logs/Temp.csv');
+				csv_stream = fs.createWriteStream(fileName);
 				socketServer.emit('Completed',{'key': data.toString()});
 			}
 			
