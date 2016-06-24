@@ -6,8 +6,9 @@ var fs = require('fs');
 var time_handler = require('moment');
 
 
-var fileName = (__dirname + '/logs/Run:' + time_handler().format('HH:mm:ss') + '.csv')
-var csv_stream = fs.createWriteStream(fileName)
+//var fileName = (__dirname + '/logs/Run:' + time_handler().format('dd-MM-YY_HH:mm:ss') + '.csv')
+var fileName = (__dirname + '/logs/Temp.csv');
+var csv_stream = fs.createWriteStream(fileName);
 
 
 SerialPort = require("serialport").SerialPort;
@@ -24,9 +25,12 @@ app.get('/', function(req, res){
 socketServer.on('connection', function(socket){
   console.log('a user connected');
 	socket.on('run', function(data){
-	  serialPort.write('Z' + data + 'A');
-	  console.log('write to ard');
-	  console.log('Z' + data + 'A');
+	  
+	fileName = (__dirname + '/logs/Run:' + time_handler().format('dd-MM-YY_HH:mm:ss') + '.csv');
+	csv_stream = fs.createWriteStream(fileName);
+	serialPort.write('Z' + data + 'A');
+  	console.log('write to ard');
+	console.log('Z' + data + 'A');
 	});
 	socket.on('stop', function(data){
 	  serialPort.write('Y' + data + 'B');
