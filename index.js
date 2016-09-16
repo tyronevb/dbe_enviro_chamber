@@ -26,7 +26,7 @@ socketServer.on('connection', function(socket){
   console.log('a user connected');
 	socket.on('run', function(data){
 	  
-	fileName = (__dirname + '/logs/Run:' + time_handler().format('dd-DD-MM-YY_HH:mm:ss') + '.csv');
+	fileName = (__dirname + '/logs/' + time_handler().format('YYYYMMYY_HH[h]mm') + '<' + Math.floor(new Date()/1000)  + '>.csv');
 	csv_stream = fs.createWriteStream(fileName);
 	serialPort.write('Z' + data + 'A');
   	console.log('write to ard');
