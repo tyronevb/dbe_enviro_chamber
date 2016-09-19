@@ -26,7 +26,7 @@ socketServer.on('connection', function(socket){
   console.log('a user connected');
 	socket.on('run', function(data){
 	  
-	fileName = (__dirname + '/logs/' + time_handler().format('YYYYMMYY_HH[h]mm') + '<' + Math.floor(new Date()/1000)  + '>.csv');
+	fileName = (__dirname + '/logs/' + time_handler().format('YYYYMMDD_HH[h]mm') + '_' + Math.floor(new Date()/1000)  + '_.csv');
 	csv_stream = fs.createWriteStream(fileName);
 	serialPort.write('Z' + data + 'A');
   	console.log('write to ard');
@@ -62,12 +62,13 @@ function SocketIO_serialemit(sendData){
 	if(sendData.length >= 14)
 	{	
 		var s_data = sendData.split(",");
+		csv_stream.write(time_handler().format('HH:mm:ss') + ',' + s_data[0] + ',' + s_data[1] + ',' + s_data[2]+ '\n');
+		//csv_stream.write(time_handler().format('HH:mm:ss') + ',');
+		//csv_stream.write(s_data[0] + ',' + s_data[1] + ',' + s_data[2]);
+		//csv_stream.write('\n');
 		socketServer.emit('temp1',{'temp': s_data[0]});
 		socketServer.emit('temp2',{'temp': s_data[1]});
 		socketServer.emit('temp3',{'temp': s_data[2]});
-		csv_stream.write(time_handler().format('HH:mm:ss') + ',');
-		csv_stream.write(s_data[0] + ',' + s_data[1] + ',' + s_data[2]);
-		csv_stream.write('\n');
 		//csv_stream.end();	
 	}
 	
